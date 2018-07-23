@@ -10,6 +10,7 @@ import (
 func main() {
     counts := make(map[string]int)
     filenames := make(map[string]string)
+
     for _, filename := range os.Args[1:] {
         data, err := ioutil.ReadFile(filename)
         if err != nil {
