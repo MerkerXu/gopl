@@ -19,6 +19,8 @@ func main() {
         fmt.Printf("%v\n", err)
     }
     fmt.Printf("gcd(%d,%d) = %d\n", m, n, gcd(m, n))
+
+    fmt.Printf("fib(%d)=%d\n", m, fib(m))
 }
 
 func gcd(x, y int) int {
@@ -26,5 +28,13 @@ func gcd(x, y int) int {
         x, y = y, x%y
     }
 
+    return x
+}
+
+func fib(n int) int {
+    x, y := 0, 1
+    for i:=0; i<n; i++ {
+        x, y = y, x+y
+    }
     return x
 }
