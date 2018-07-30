@@ -1,9 +1,24 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "os"
+    "strconv"
+)
 
 func main() {
-    fmt.Printf("gcd(%d,%d) = %d\n", 18, 27, gcd(18, 27))
+    if len(os.Args) != 3 {
+        fmt.Printf("usage: %s <number1> <number2>\n", os.Args[0])
+    }
+    m, err := strconv.Atoi(os.Args[1])
+    if err != nil {
+        fmt.Printf("%v\n", err)
+    }
+    n, err := strconv.Atoi(os.Args[2])
+    if err != nil {
+        fmt.Printf("%v\n", err)
+    }
+    fmt.Printf("gcd(%d,%d) = %d\n", m, n, gcd(m, n))
 }
 
 func gcd(x, y int) int {
