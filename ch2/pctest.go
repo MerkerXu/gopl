@@ -18,4 +18,5 @@ func main() {
 	}
 	fmt.Printf("popcount(%d)=%d\n", input, popcount.PopCount(input))
 	fmt.Printf("popcount23(%d)=%d\n", input, popcount.PopCount23(input))
+	fmt.Printf("popcount24(%d)=%d\n", input, popcount.PopCount24(input))
 }
