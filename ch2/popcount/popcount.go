@@ -1,3 +1,4 @@
+// A summary: http://www.cnblogs.com/Martinium/articles/popcount.html
 package popcount
 
 var pc [256]byte
