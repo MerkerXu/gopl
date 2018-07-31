@@ -15,7 +15,21 @@ func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
 
 func FToC(f Fahrenheit) Celsius { return Celsius((f-32)*5/9) }
 
+func (c Celsius) String() string { return fmt.Sprintf("%gºC", c) }
+
 func main() {
     fmt.Printf("%gºC=%gºF\n", Celsius(100), CToF(100))
     fmt.Printf("%gºF=%gºC", Fahrenheit(100), FToC(100))
+    fmt.Printf("%g\n", BoilingC - FreezingC)
+    boilingF := CToF(BoilingC)
+    fmt.Printf("%g\n", boilingF- CToF(FreezingC))
+    //fmt.Printf("%g\n", boilingF-FreezingC)
+
+    c := FToC(212.0)
+    fmt.Println(c.String())
+    fmt.Printf("%v\n", c)
+    fmt.Printf("%s\n", c)
+    fmt.Println(c)
+    fmt.Printf("%g\n", c)
+    fmt.Println(float64(c))
 }
