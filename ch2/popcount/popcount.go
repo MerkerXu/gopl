@@ -21,9 +21,9 @@ func PopCount(x uint64) int {
 
 func PopCount23(x uint64) int {
 	count := byte(0)
-	for i := uint(0); i < 8 && x != 0; i++ {
-		x = x >> (i * 8)
+	for x != 0 {
 		count += pc[byte(x)]
+		x >>= 8
 	}
 	return int(count)
 }
