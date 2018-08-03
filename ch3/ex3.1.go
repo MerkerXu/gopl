@@ -21,14 +21,16 @@ func main() {
 		"style='stroke:grey; fill: white; stroke-width: 0.7' "+
 		"width='%d' height='%d'>", width, height)
 	for i := 0; i < cells; i++ {
-		ax, ay, oka := corner(i+1, j)
-		bx, by, okb := corner(i, j)
-		cx, cy, okc := corner(i, j+1)
-		dx, dy, okd := corner(i+1, j+1)
+		for j := 0; j < cells; j++ {
+			ax, ay, oka := corner(i+1, j)
+			bx, by, okb := corner(i, j)
+			cx, cy, okc := corner(i, j+1)
+			dx, dy, okd := corner(i+1, j+1)
 
-		if oka && okb && okc && okd {
-			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
-				ax, ay, bx, by, cx, cy, dx, dy)
+			if oka && okb && okc && okd {
+				fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
+					ax, ay, bx, by, cx, cy, dx, dy)
+			}
 		}
 	}
 	fmt.Printf("</svg>")
