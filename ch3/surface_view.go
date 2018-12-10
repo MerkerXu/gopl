@@ -41,8 +41,6 @@ func surface(out io.Writer) {
             if abool && bbool && cbool && dbool {
                 fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
                     ax, ay, bx, by, cx, cy, dx, dy)
-            } else {
-                continue;
             }
 		}
 	}
