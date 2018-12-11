@@ -18,6 +18,7 @@ const (
 )
 
 var sin30, cos30 = math.Sin(angle), math.Cos(angle)
+var maxz, minz float64
 
 func main() {
     handler := func(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,8 @@ func main() {
 }
 
 func surface(out io.Writer) {
+    extremez()
+
 	fmt.Fprintf(out, "<svg xmlns='http://www.w3.org/2000/svg' "+
 		"style='stroke:grey; fill: white; stroke-width: 0.7' "+
 		"width='%d' height='%d'>", width, height)
@@ -38,14 +41,36 @@ func surface(out io.Writer) {
 			bx, by, okb := corner(i, j)
 			cx, cy, okc := corner(i, j+1)
 			dx, dy, okd := corner(i+1, j+1)
+            color := fmt.Sprintf("#%06X", color(i, j))
 
 			if oka && okb && okc && okd {
-				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
-					ax, ay, bx, by, cx, cy, dx, dy)
+				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='%s'/>\n",
+                    ax, ay, bx, by, cx, cy, dx, dy, color)
 			}
 		}
 	}
 	fmt.Fprintf(out, "</svg>")
+}
+
+func extremez() {
+    minz = math.MaxFloat64
+    maxz = math.SmallestNonzeroFloat64
+    maxi := 0
+	for i := 0; i < cells; i++ {
+        x := xyrange * (float64(i)/cells - 0.5)
+        z := f(x, x)
+        if math.IsNaN(z) {
+            continue
+        }
+        if z > maxz {
+            maxz = z
+            maxi = i
+        } else if z < minz {
+            minz = z
+        }
+    }
+
+    log.Printf("maxz=%g, minz=%g, maxi=%d\n", maxz, minz, maxi)
 }
 
 func corner(i, j int) (float64, float64, bool) {
@@ -68,7 +93,14 @@ func f(x, y float64) float64 {
 	return math.Sin(r) / r
 }
 
-func color(z, maxz, minz float64) uint {
-    return 0x0000ff + uint((0xff0000 - 0x0000ff) * ( z - minz) / (maxz -
-    minz))
+func color(i, j int) uint {
+	x := xyrange * (float64(i)/cells - 0.5)
+	y := xyrange * (float64(j)/cells - 0.5)
+
+	z := f(x, y)
+	if math.IsNaN(z) {
+		return 0
+	}
+
+    return 0x0000ff + uint((0xff0000 - 0x0000ff) * ( z - minz) / (maxz - minz))
 }
