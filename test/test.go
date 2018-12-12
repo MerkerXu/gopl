@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+    testPrintf()
+    os.Exit(2)
 	testFloat()
 	testRune()
 	fmt.Printf("%d\n", byte(65536>>16))
@@ -17,6 +19,10 @@ func main() {
 	hostname := GetHostname("")
 	println("主机名:", hostname)
 	fmt.Println("操作系统ARCH:", GetOSArch())
+}
+
+func testPrintf() {
+    fmt.Println(fmt.Sprintf("#%06X", 255))
 }
 
 func testFloat() {
