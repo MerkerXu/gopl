@@ -9,6 +9,11 @@ import (
 
 func comma(s string) string {
     var buf bytes.Buffer
+    if strings.Index(s, "+") != -1 || strings.Index(s, "-") != -1 {
+        signStr := s[0:1]
+        s = s[1:]
+        buf.WriteString(signStr)
+    }
     dotIndex := strings.Index(s, ".")
     intPart := s[:dotIndex]
     floatPart := s[dotIndex+1:]
@@ -39,7 +44,11 @@ func comma(s string) string {
 func main() {
     fmt.Println(comma(".56789123"))
     fmt.Println(comma("12.56789123"))
+    fmt.Println(comma("+12.56789123"))
+    fmt.Println(comma("-12.56789123"))
     fmt.Println(comma("123.56789123"))
     fmt.Println(comma("12345.56789123"))
+    fmt.Println(comma("+12345.56789123"))
+    fmt.Println(comma("-12345.56789123"))
     fmt.Println(comma("12."))
 }
