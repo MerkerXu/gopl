@@ -41,4 +41,5 @@ func main() {
     fmt.Printf("%b %t\n", v, IsCast(v))
 
     fmt.Printf("%#X\n", GiB)
+    fmt.Println(YiB/ZiB)
 }
