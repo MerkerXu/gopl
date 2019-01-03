@@ -34,9 +34,16 @@ func main() {
 	fmt.Printf("%q\n", runes)
 
     var x, y []int
-    for i:=0; i<10; i++ {
+    for i:=0; i<12; i++ {
         y = appendInt(x, i)
-        fmt.Printf("%d len=%d\tcap=%d\t%v\n", i, len(x), cap(y), y)
+        fmt.Printf("%d\tlen=%d\t\tcap=%d\t\t%v\n", i, len(y), cap(y), y)
         x = y
     }
+
+    var  m []int
+    m = append(m, 1)
+    m = append(m, 2, 3)
+    m = append(m, 4, 5, 6)
+    m = append(m, m...)
+    fmt.Println(m)
 }
